@@ -43,7 +43,7 @@ Since these are your first weeks with the React world, we would keep things simp
 
 ## Task Requirements
 
-💡 The requirements of the task as well as a description of the project structure can be found in this [video](https://app.skillbrain.com/courses/l/e241405d-92e6-4be7-ab12-b2baebebed79) 👈🏻
+💡 The requirements of the task as well as a description of the project structure can be found in this [video](https://www.youtube.com/watch?v=epM9Fy_KaeQ&t=8s&ab_channel=SkillBrain) 👈🏻
 
 > In software development, a user story is an actionable goal from the perspective of the user. Defining user stories before you begin your work will help you focus on work.
 
