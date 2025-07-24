@@ -79,7 +79,7 @@ function App() {
   const [todos, setTodos] = useState(TODOS_MOCK);
   const completedTodos = todos.filter((todo) => todo.completed === true);
   const activeTodos = todos.filter((todo) => todo.completed === false);
-  const [isModalOpen, setIsModalOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   // const findTodo = (id) => {
   //   const todo = todos.find((todo) => todo.id === id);
