@@ -3,7 +3,7 @@ import Checkbox from "../checkbox/CheckBox";
 import "./TodoItem.css";
 
 const TodoItem = (props) => {
-  const { id, title, description, completed, findTodo } = props;
+  const { title, description, completed } = props;
   const handleCheckboxChange = (value) => {
     console.log(value);
   };
@@ -17,11 +17,7 @@ const TodoItem = (props) => {
           <h4>{title}</h4>
         </div>
         <div>
-          <i
-            className='fa fa-pencil'
-            aria-hidden='true'
-            onClick={() => findTodo(id)}
-          ></i>
+          <i className='fa fa-pencil' aria-hidden='true'></i>
           <i className='fa fa-trash' aria-hidden='true'></i>
         </div>
       </div>

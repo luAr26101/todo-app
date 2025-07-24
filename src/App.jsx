@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import "./App.css";
+import ActiveTodos from "./components/active-todos/ActiveTodos";
 import Button from "./components/button/Button";
 import Card from "./components/card/Card";
-import Input from "./components/input/Input";
-import TextArea from "./components/input/TextArea";
-import TodoItem from "./components/todo-item/TodoItem";
+import CompletedTodos from "./components/completed-todos/CompletedTodos";
+import Modal from "./components/modal/Modal";
+import TodoForm from "./components/todo-form/TodoForm";
 
 const TODOS_MOCK = [
   {
@@ -77,44 +78,50 @@ const TODOS_MOCK = [
 function App() {
   const [todos, setTodos] = useState(TODOS_MOCK);
   const completedTodos = todos.filter((todo) => todo.completed === true);
-  const toBeCompletedTodos = todos.filter((todo) => todo.completed === false);
-  console.log(completedTodos);
-  console.log(toBeCompletedTodos);
+  const activeTodos = todos.filter((todo) => todo.completed === false);
+  const [isModalOpen, setIsModalOpen] = useState(true);
 
-  const findTodo = (id) => {
-    const todo = todos.find((todo) => todo.id === id);
-    console.log(todo);
-    return todo;
+  // const findTodo = (id) => {
+  //   const todo = todos.find((todo) => todo.id === id);
+  //   console.log(todo);
+  //   return todo;
+  // };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleAddTask = (task) => {
+    setTodos((prevTodos) => [task, ...prevTodos]);
   };
   return (
     <div className='App'>
       <div className='app-container'>
-        {/* 
-            This is your Create Card component.
-          */}
-        <Card>
-          <h2>Create Todo</h2>
-          <form>
-            <Input onChange={() => {}} placeholder='Title' type='text' />
-            <TextArea onChange={() => {}} placeholder='Description' />
-            <Button type='submit'>Create</Button>
-          </form>
-        </Card>
-
-        {todos.map((todo) => (
-          <TodoItem key={todo.id} {...todo} findTodo={findTodo} />
-        ))}
+        {/* <TodoForm /> */}
         <Card>
           <h1>My todos</h1>
-          <Button onClick={() => console.log("Open Modal")}>Add +</Button>
-          <div className='list-container'>{/* List not completed todos */}</div>
+          <Button onClick={handleOpenModal}>Add +</Button>
+          <div className='list-container'>
+            <ActiveTodos todos={activeTodos} />
+          </div>
 
           <div className='separator'></div>
 
           <h2>Completed</h2>
-          <div className='list-container'>{/* List completed todos */}</div>
+          <div className='list-container'>
+            <CompletedTodos todos={completedTodos} />
+          </div>
         </Card>
       </div>
+      {isModalOpen && (
+        <Modal closeModal={handleCloseModal}>
+          <TodoForm addTask={handleAddTask} closeModal={handleCloseModal} />
+        </Modal>
+      )}
     </div>
   );
 }

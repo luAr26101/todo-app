@@ -1,31 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Modal.css";
-import { useEffect } from "react";
 
 const Modal = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const closeModal = (e) => {
-    e.stopPropagation();
-    setIsOpen(false);
-    if (props.onClose) {
-      props.onClose();
-    }
-  };
-
-  useEffect(() => {
-    setIsOpen(props.isOpen);
-  }, [props.isOpen]);
-
+  const { closeModal, children } = props;
   return (
-    <div className={`${isOpen ? "modal-wrapper" : "modal-hidden"}`}>
+    <div className='modal-wrapper'>
       <i
         onClick={closeModal}
-        className="close-icon fa fa-times-circle-o"
-        aria-hidden="true"
+        className='close-icon fa fa-times-circle-o'
+        aria-hidden='true'
       ></i>
 
-      <div className="modal-content">{props.children}</div>
+      <div className='modal-content'>{children}</div>
     </div>
   );
 };
