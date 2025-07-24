@@ -1,73 +1,118 @@
-import React from "react";
+import React, { useState } from "react";
+import "./App.css";
+import Button from "./components/button/Button";
 import Card from "./components/card/Card";
 import Input from "./components/input/Input";
-import TodoItem from "./components/todo-item/TodoItem";
 import TextArea from "./components/input/TextArea";
-import Button from "./components/button/Button";
-import "./App.css";
+import TodoItem from "./components/todo-item/TodoItem";
 
 const TODOS_MOCK = [
   {
-    id: "1",
-    title: "Todo 1",
+    id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    title: "Buy groceries",
     description:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. At id illo repellendus non maiores in pariatur aliquam iure fugit amet!",
+      "Pick up milk, bread, eggs, and fresh vegetables from the store.",
     completed: false,
   },
   {
-    id: "2",
-    title: "Todo 2",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
+    id: "1c6f78a2-0d77-4c65-9423-f2f52aeffac0",
+    title: "Morning workout",
+    description:
+      "Complete a 30-minute run and a 15-minute strength training session.",
+    completed: true,
+  },
+  {
+    id: "65af0ea6-0e5d-4f29-bc89-1e9c112c3e3f",
+    title: "Read a chapter of a book",
+    description: "Read one chapter from 'Atomic Habits' before bedtime.",
     completed: false,
   },
   {
-    id: "3",
-    title: "Todo 3",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
+    id: "d9c67d14-0ae6-4db8-8d4f-3f09e8913b70",
+    title: "Respond to emails",
+    description: "Reply to all pending work-related emails before lunch.",
     completed: true,
   },
   {
-    id: "4",
-    title: "Todo 4",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit!",
+    id: "77e56f62-2896-4e33-8c96-abc9bff8e93f",
+    title: "Write blog post",
+    description:
+      "Draft a new post about JavaScript async/await with practical examples.",
+    completed: false,
+  },
+  {
+    id: "e231a648-2939-4bd0-b7c6-143c3c65ef1e",
+    title: "Schedule dentist appointment",
+    description: "Call Dr. Lewis’ office and book a checkup for next week.",
     completed: true,
+  },
+  {
+    id: "f9a4a3d2-72d5-4c02-90f3-c4e0c3dc9f60",
+    title: "Clean workspace",
+    description: "Organize desk, clear cables, and wipe down surfaces.",
+    completed: false,
+  },
+  {
+    id: "b1c3e01b-0eeb-4d56-b1d5-bf149c45b13c",
+    title: "Fix website bug",
+    description:
+      "Resolve the issue causing the navbar dropdown not to display on mobile.",
+    completed: false,
+  },
+  {
+    id: "c2f40136-9d2b-4e0b-9d90-e2b37c3c8f17",
+    title: "Update resume",
+    description: "Add latest project and update the skills section.",
+    completed: true,
+  },
+  {
+    id: "4a8e5b20-90e3-4e9b-81ff-3f6f3efaa0e9",
+    title: "Plan weekend trip",
+    description:
+      "Research hiking trails and book accommodation for Saturday night.",
+    completed: false,
   },
 ];
 
 function App() {
+  const [todos, setTodos] = useState(TODOS_MOCK);
+  const completedTodos = todos.filter((todo) => todo.completed === true);
+  const toBeCompletedTodos = todos.filter((todo) => todo.completed === false);
+  console.log(completedTodos);
+  console.log(toBeCompletedTodos);
+
+  const findTodo = (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+    console.log(todo);
+    return todo;
+  };
   return (
-    <div className="App">
-      <div className="app-container">
+    <div className='App'>
+      <div className='app-container'>
         {/* 
             This is your Create Card component.
           */}
         <Card>
           <h2>Create Todo</h2>
           <form>
-            <Input onChange={() => {}} placeholder="Title" type="text" />
-            <TextArea onChange={() => {}} placeholder="Description" />
-            <Button type="submit">Create</Button>
+            <Input onChange={() => {}} placeholder='Title' type='text' />
+            <TextArea onChange={() => {}} placeholder='Description' />
+            <Button type='submit'>Create</Button>
           </form>
         </Card>
 
-        {/* 
-          My Todos
-        */}
+        {todos.map((todo) => (
+          <TodoItem key={todo.id} {...todo} findTodo={findTodo} />
+        ))}
         <Card>
           <h1>My todos</h1>
           <Button onClick={() => console.log("Open Modal")}>Add +</Button>
-          <div className="list-container">
-            <TodoItem completed={false} />
-            <TodoItem completed={false} />
-          </div>
+          <div className='list-container'>{/* List not completed todos */}</div>
 
-          <div className="separator"></div>
+          <div className='separator'></div>
 
           <h2>Completed</h2>
-          <div className="list-container">
-            <TodoItem completed={true} />
-            <TodoItem completed={true} />
-          </div>
+          <div className='list-container'>{/* List completed todos */}</div>
         </Card>
       </div>
     </div>
