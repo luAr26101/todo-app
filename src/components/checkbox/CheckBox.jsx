@@ -1,31 +1,26 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import "./Checkbox.css";
 
 const Checkbox = (props) => {
-  const [checked, setChecked] = useState(!!props.checked);
+  const { checked, statusChange } = props;
+  const [isChecked, setIsChecked] = useState(checked);
 
-  const handleCheckboxChange = (e) => {
-    setChecked(e.target.checked);
+  const handleCheckboxChange = (event) => {
+    const status = event.target.checked;
+    setIsChecked(status);
+    statusChange(status);
   };
 
-  useEffect(() => {
-    if (props.onChange) {
-      props.onChange(checked);
-    }
-  }, [checked]);
-
   return (
-    <div className="round">
+    <div className='round'>
       <input
-        value={checked}
-        checked={checked}
+        checked={isChecked}
+        type='checkbox'
         onChange={handleCheckboxChange}
-        type="checkbox"
       />
       <label
-        className={`checkbox ${checked ? "checkbox--active" : ""}`}
-        htmlFor="checkbox"
+        className={`checkbox ${isChecked ? "checkbox--active" : ""}`}
       ></label>
     </div>
   );

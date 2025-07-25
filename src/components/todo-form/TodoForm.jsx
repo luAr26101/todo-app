@@ -15,7 +15,6 @@ function TodoForm(props) {
     description: "",
   };
   const [formData, setFormData] = useState(initialFormData);
-  console.log(formData);
 
   const handleChange = (event) => {
     setFormData((prevFormData) => ({
@@ -35,7 +34,6 @@ function TodoForm(props) {
       description: formData.description,
       completed: false,
     };
-    console.log(newTask);
 
     addTask(newTask);
     // Clear inputs and close modal

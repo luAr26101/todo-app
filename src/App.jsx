@@ -81,11 +81,13 @@ function App() {
   const activeTodos = todos.filter((todo) => todo.completed === false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // const findTodo = (id) => {
-  //   const todo = todos.find((todo) => todo.id === id);
-  //   console.log(todo);
-  //   return todo;
-  // };
+  const handleUpdateStatus = (id, status) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        return todo.id === id ? { ...todo, completed: status } : todo;
+      });
+    });
+  };
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
@@ -106,14 +108,20 @@ function App() {
           <h1>My todos</h1>
           <Button onClick={handleOpenModal}>Add +</Button>
           <div className='list-container'>
-            <ActiveTodos todos={activeTodos} />
+            <ActiveTodos
+              todos={activeTodos}
+              updateStatus={handleUpdateStatus}
+            />
           </div>
 
           <div className='separator'></div>
 
           <h2>Completed</h2>
           <div className='list-container'>
-            <CompletedTodos todos={completedTodos} />
+            <CompletedTodos
+              todos={completedTodos}
+              updateStatus={handleUpdateStatus}
+            />
           </div>
         </Card>
       </div>
