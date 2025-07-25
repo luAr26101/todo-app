@@ -81,7 +81,7 @@ function App() {
     title: "",
     description: "",
   };
-  const [todos, setTodos] = useState(TODOS_MOCK);
+  const [todos, setTodos] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const completedTodos = todos.filter((todo) => todo.completed === true);

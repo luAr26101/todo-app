@@ -6,15 +6,19 @@ function CompletedTodos(props) {
   const { todos, updateStatus, deleteTodo, openModal } = props;
   return (
     <>
-      {todos.map((todo) => (
-        <TodoItem
-          key={todo.id}
-          {...todo}
-          updateStatus={updateStatus}
-          deleteTodo={deleteTodo}
-          openModal={openModal}
-        />
-      ))}
+      {todos.length > 0 ? (
+        todos.map((todo) => (
+          <TodoItem
+            key={todo.id}
+            {...todo}
+            updateStatus={updateStatus}
+            deleteTodo={deleteTodo}
+            openModal={openModal}
+          />
+        ))
+      ) : (
+        <p>You haven't completed any todos yet ;)</p>
+      )}
     </>
   );
 }

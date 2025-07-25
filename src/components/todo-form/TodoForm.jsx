@@ -11,7 +11,6 @@ import { generateUUID } from "../../helpers";
 function TodoForm(props) {
   const { addTodo, updateTodo, closeModal, data } = props;
   const { id } = data;
-  console.log(id);
 
   const [formData, setFormData] = useState({
     title: data.title,
