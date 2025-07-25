@@ -9,12 +9,14 @@ import TextArea from "../input/TextArea";
 import { generateUUID } from "../../helpers";
 
 function TodoForm(props) {
-  const { addTask, closeModal } = props;
-  const initialFormData = {
-    title: "",
-    description: "",
-  };
-  const [formData, setFormData] = useState(initialFormData);
+  const { addTodo, updateTodo, closeModal, data } = props;
+  const { id } = data;
+  console.log(id);
+
+  const [formData, setFormData] = useState({
+    title: data.title,
+    description: data.description,
+  });
 
   const handleChange = (event) => {
     setFormData((prevFormData) => ({
@@ -28,22 +30,34 @@ function TodoForm(props) {
 
     if (!formData.title || !formData.description) return;
 
-    const newTask = {
-      id: generateUUID(),
-      title: formData.title,
-      description: formData.description,
-      completed: false,
-    };
+    if (id.length === 0) {
+      const newTodo = {
+        id: generateUUID(),
+        title: formData.title,
+        description: formData.description,
+        completed: false,
+      };
 
-    addTask(newTask);
+      addTodo(newTodo);
+    } else {
+      updateTodo(id, {
+        title: formData.title,
+        description: formData.description,
+      });
+    }
+
     // Clear inputs and close modal
-    setFormData(initialFormData);
+    setFormData({
+      title: "",
+      description: "",
+    });
     closeModal();
   };
 
   return (
     <Card>
-      <h2>Create Todo</h2>
+      {id.length === 0 ? <h2>Create Todo</h2> : <h2>Update Todo</h2>}
+
       <form onSubmit={handleSubmit}>
         <Input
           onChange={handleChange}
@@ -58,7 +72,7 @@ function TodoForm(props) {
           name='description'
           value={formData.description}
         />
-        <Button type='submit'>Create</Button>
+        <Button type='submit'>{id.length === 0 ? "Create" : "Update"}</Button>
       </form>
     </Card>
   );

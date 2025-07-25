@@ -21,7 +21,7 @@ const TodoItem = (props) => {
   };
 
   const handleEdit = () => {
-    openModal();
+    openModal(id);
   };
 
   return (

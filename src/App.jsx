@@ -76,10 +76,20 @@ const TODOS_MOCK = [
 ];
 
 function App() {
+  const initialFormData = {
+    id: "",
+    title: "",
+    description: "",
+  };
   const [todos, setTodos] = useState(TODOS_MOCK);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formData, setFormData] = useState(initialFormData);
   const completedTodos = todos.filter((todo) => todo.completed === true);
   const activeTodos = todos.filter((todo) => todo.completed === false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const resetFormData = () => {
+    setFormData(initialFormData);
+  };
 
   const handleUpdateStatus = (id, status) => {
     setTodos((prevTodos) => {
@@ -97,22 +107,40 @@ function App() {
 
   const handleCloseModal = () => {
     setIsModalOpen(false);
+    resetFormData();
   };
 
-  const handleOpenModal = () => {
+  const handleOpenModal = (todoId) => {
+    if (!todoId) return setIsModalOpen(true);
+    const { id, title, description } = todos.find((t) => t.id === todoId);
+    setFormData({ id, title, description });
     setIsModalOpen(true);
   };
 
-  const handleAddTask = (task) => {
+  const handleAddTodo = (task) => {
     setTodos((prevTodos) => [task, ...prevTodos]);
+    resetFormData();
   };
+
+  const handleUpdateTodo = (id, data) => {
+    setTodos((prevTodos) => {
+      return prevTodos.map((todo) => {
+        if (todo.id === id) {
+          return { ...todo, ...data };
+        } else {
+          return todo;
+        }
+      });
+    });
+  };
+
   return (
     <div className='App'>
       <div className='app-container'>
         {/* <TodoForm /> */}
         <Card>
           <h1>My todos</h1>
-          <Button onClick={handleOpenModal}>Add +</Button>
+          <Button onClick={() => handleOpenModal()}>Add +</Button>
           <div className='list-container'>
             <ActiveTodos
               todos={activeTodos}
@@ -137,7 +165,12 @@ function App() {
       </div>
       {isModalOpen && (
         <Modal closeModal={handleCloseModal}>
-          <TodoForm addTask={handleAddTask} closeModal={handleCloseModal} />
+          <TodoForm
+            addTodo={handleAddTodo}
+            updateTodo={handleUpdateTodo}
+            closeModal={handleCloseModal}
+            data={formData}
+          />
         </Modal>
       )}
     </div>

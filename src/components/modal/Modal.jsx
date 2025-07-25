@@ -3,6 +3,7 @@ import "./Modal.css";
 
 const Modal = (props) => {
   const { closeModal, children } = props;
+
   return (
     <div className='modal-wrapper'>
       <i
