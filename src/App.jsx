@@ -7,7 +7,7 @@ import CompletedTodos from "./components/completed-todos/CompletedTodos";
 import Modal from "./components/modal/Modal";
 import TodoForm from "./components/todo-form/TodoForm";
 
-const TODOS_MOCK = [
+const TODOS_DATA = [
   {
     id: "3fa85f64-5717-4562-b3fc-2c963f66afa6",
     title: "Buy groceries",
@@ -81,7 +81,7 @@ function App() {
     title: "",
     description: "",
   };
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState(TODOS_DATA);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
   const completedTodos = todos.filter((todo) => todo.completed === true);
@@ -137,7 +137,6 @@ function App() {
   return (
     <div className='App'>
       <div className='app-container'>
-        {/* <TodoForm /> */}
         <Card>
           <h1>My todos</h1>
           <Button onClick={() => handleOpenModal()}>Add +</Button>
@@ -149,9 +148,7 @@ function App() {
               openModal={handleOpenModal}
             />
           </div>
-
           <div className='separator'></div>
-
           <h2>Completed</h2>
           <div className='list-container'>
             <CompletedTodos
