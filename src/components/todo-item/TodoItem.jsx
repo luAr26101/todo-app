@@ -3,13 +3,25 @@ import Checkbox from "../checkbox/CheckBox";
 import "./TodoItem.css";
 
 const TodoItem = (props) => {
-  const { id, title, description, completed, updateStatus, deleteTodo } = props;
+  const {
+    id,
+    title,
+    description,
+    completed,
+    updateStatus,
+    deleteTodo,
+    openModal,
+  } = props;
   const handleStatusChange = (status) => {
     updateStatus(id, status);
   };
 
   const handleDelete = () => {
     deleteTodo(id);
+  };
+
+  const handleEdit = () => {
+    openModal();
   };
 
   return (
@@ -21,7 +33,11 @@ const TodoItem = (props) => {
           <h4>{title}</h4>
         </div>
         <div>
-          <i className='fa fa-pencil' aria-hidden='true'></i>
+          <i
+            className='fa fa-pencil'
+            aria-hidden='true'
+            onClick={handleEdit}
+          ></i>
           <i
             className='fa fa-trash'
             aria-hidden='true'

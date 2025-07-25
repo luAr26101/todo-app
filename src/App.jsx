@@ -118,6 +118,7 @@ function App() {
               todos={activeTodos}
               updateStatus={handleUpdateStatus}
               deleteTodo={handleDeleteTodo}
+              openModal={handleOpenModal}
             />
           </div>
 
@@ -129,6 +130,7 @@ function App() {
               todos={completedTodos}
               updateStatus={handleUpdateStatus}
               deleteTodo={handleDeleteTodo}
+              openModal={handleOpenModal}
             />
           </div>
         </Card>

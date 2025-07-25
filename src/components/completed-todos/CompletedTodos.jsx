@@ -3,7 +3,7 @@ import TodoItem from "../todo-item/TodoItem";
 import "./CompletedTodos.css";
 
 function CompletedTodos(props) {
-  const { todos, updateStatus, deleteTodo } = props;
+  const { todos, updateStatus, deleteTodo, openModal } = props;
   return (
     <>
       {todos.map((todo) => (
@@ -12,6 +12,7 @@ function CompletedTodos(props) {
           {...todo}
           updateStatus={updateStatus}
           deleteTodo={deleteTodo}
+          openModal={openModal}
         />
       ))}
     </>
