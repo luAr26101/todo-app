@@ -3,9 +3,13 @@ import Checkbox from "../checkbox/CheckBox";
 import "./TodoItem.css";
 
 const TodoItem = (props) => {
-  const { id, title, description, completed, updateStatus } = props;
+  const { id, title, description, completed, updateStatus, deleteTodo } = props;
   const handleStatusChange = (status) => {
     updateStatus(id, status);
+  };
+
+  const handleDelete = () => {
+    deleteTodo(id);
   };
 
   return (
@@ -18,7 +22,11 @@ const TodoItem = (props) => {
         </div>
         <div>
           <i className='fa fa-pencil' aria-hidden='true'></i>
-          <i className='fa fa-trash' aria-hidden='true'></i>
+          <i
+            className='fa fa-trash'
+            aria-hidden='true'
+            onClick={handleDelete}
+          ></i>
         </div>
       </div>
 

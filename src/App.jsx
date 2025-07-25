@@ -89,6 +89,12 @@ function App() {
     });
   };
 
+  const handleDeleteTodo = (id) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter((todo) => todo.id !== id);
+    });
+  };
+
   const handleCloseModal = () => {
     setIsModalOpen(false);
   };
@@ -111,6 +117,7 @@ function App() {
             <ActiveTodos
               todos={activeTodos}
               updateStatus={handleUpdateStatus}
+              deleteTodo={handleDeleteTodo}
             />
           </div>
 
@@ -121,6 +128,7 @@ function App() {
             <CompletedTodos
               todos={completedTodos}
               updateStatus={handleUpdateStatus}
+              deleteTodo={handleDeleteTodo}
             />
           </div>
         </Card>
